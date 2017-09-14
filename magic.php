@@ -1,17 +1,17 @@
 <?php
 
-class Test {
-    
-    private $hidden = 'hidden value';
-    
-    private $duck;
-    
-    public function __call($varName, $varValue) {
-        return $this->$varName;
+class MethodTest {
+    public function __call($name, $arguments) {
+        echo "Вызов метода '$name' "
+             . implode(', ', $arguments). "\n";
     }
-    
+
+    /**  Начиная с версии PHP 5.3.0  */
+    public static function __callStatic($name, $arguments) {
+        echo "Вызов статического метода '$name' "
+             . implode(', ', $arguments). "\n";
+    }
 }
 
-$test = new Test();
-
-echo $test->hiddensadasd;
+$obj = new MethodTest;
+$obj->runTest('в контексте объекта');
